@@ -49,15 +49,31 @@ class Company {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  static async findAll() {
-    const companiesRes = await db.query(
-          `SELECT handle,
-                  name,
-                  description,
-                  num_employees AS "numEmployees",
-                  logo_url AS "logoUrl"
-           FROM companies
-           ORDER BY name`);
+  static async findAll(searchFilters = {}) {
+    let query = `SELECT handle,
+                        name,
+                        description,
+                        num_employees AS "numEmployees",
+                        logo_url AS "logoUrl"
+                 FROM companies`;
+    return companiesRes.rows;
+    
+     const { minEmployees, maxEmployees, name } = searchFilters;
+    
+    if (minEmployees > maxEmployees) {
+      throw new BadRequestError("Min employees cannot be greater than max");
+    //NEED expressions to validate filters 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    query += " ORDER BY name";
+    const companiesRes = await db.query(query, queryValues);
     return companiesRes.rows;
   }
 
