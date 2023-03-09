@@ -9,3 +9,6 @@ To run this:
 To run the tests:
 
     jest -i
+
+
+(bot fully complete. need job tests and filtering update
